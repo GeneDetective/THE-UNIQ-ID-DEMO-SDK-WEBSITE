@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard — Gourmet Pizza Paradise (UNIQ)</title>
+  <link href="/css/styles.css" rel="stylesheet">
+  <style>
+    :root {
+      --card-bg: #fff;
+      --accent1: #d1410c;
+      --accent2: #e86b2b;
+      --muted: #666;
+      --shadow: 0 14px 40px rgba(0,0,0,0.06);
+    }
+    body { background:#f6f7fb; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#222; }
+    header {
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    .dashboard { max-width: 940px; margin: 36px auto; padding: 28px; background: var(--card-bg); border-radius: 12px; box-shadow: var(--shadow); }
+    .row { display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap; }
+    .user-info { font-size:1rem; color:#333; min-width: 220px; }
+    .display-name { font-weight:800; font-size:1.2rem; margin-bottom:6px; }
+    .meta { color:var(--muted); font-size:0.95rem; margin-top:8px; line-height:1.45 }
+    .controls { display:flex; gap:10px; align-items:center; }
+    .btn { padding:10px 14px; border-radius:8px; font-weight:700; text-decoration:none; display:inline-block; cursor:pointer; border: none; }
+    .btn-danger { background:#c62828; color:#fff; }
+    .btn-secondary { background:#eee; color:#333; }
+    hr { border:none; border-top:1px solid #eee; margin:20px 0; }
+    .panel { margin-top:14px; }
+    .small { font-size:0.9rem; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="margin:0">Gourmet Pizza Paradise</h1>
+  </header>
+
+  <div class="dashboard">
+    <% if (user) { %>
+      <div class="row">
+        <div class="user-info">
+          <div class="display-name">
+            <%= user.username || 'UNIQ User' %>
+          </div>
+
+          <div class="meta">
+            <% if (user.uniqId) { %>
+              UNIQ-ID: <strong><%= user.uniqId %></strong><br>
+            <% } %>
+            Member since: <%= user.createdAt ? new Date(user.createdAt).toLocaleString() : '—' %>
+          </div>
+        </div>
+
+        <div class="controls">
+          <!-- On logout we call /logout then redirect to UNIQ login/signup page (/uniq) -->
+          <button id="uniqLogoutBtn" class="btn btn-secondary">Logout</button>
+
+          <!-- Delete account: POST /delete then redirect to index (/) -->
+          <button id="uniqDeleteBtn" class="btn btn-danger">Delete account</button>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="panel">
+        <h3>Welcome, <%= user.username || 'UNIQ user' %>!</h3>
+        <p class="small">This dashboard is for UNIQ-ID authenticated users. Sensitive fields (email, paraphrase, leaf) are not stored anywhere!.</p>
+      </div>
+
+      <!-- Non-JS fallback form for delete -->
+      <form id="uniqDeleteFallbackForm" method="POST" action="/delete" style="display:none;">
+      </form>
+
+      <script>
+        document.getElementById('uniqLogoutBtn').addEventListener('click', async () => {
+          try {
+            await fetch('/logout', { method: 'GET', credentials: 'same-origin' });
+            // After server cleared session redirect to UNIQ login/signup page
+            window.location.href = '/uniq';
+          } catch (err) {
+            console.error('Logout failed:', err);
+            window.location.href = '/uniq';
+          }
+        });
+
+        document.getElementById('uniqDeleteBtn').addEventListener('click', async () => {
+          if (!confirm('Delete account permanently? This cannot be undone.')) return;
+          try {
+            await fetch('/delete', { method: 'POST', credentials: 'same-origin' });
+            // After deletion redirect to public index (index.html)
+            window.location.href = '/';
+          } catch (err) {
+            console.error('Delete failed, falling back to form submit:', err);
+            document.getElementById('uniqDeleteFallbackForm').submit();
+          }
+        });
+      </script>
+
+    <% } else { %>
+      <p>You are not logged in. <a href="/uniq">Sign in with UNIQ</a></p>
+    <% } %>
+  </div>
+
+</body>
+</html>

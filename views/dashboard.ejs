@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard — Gourmet Pizza Paradise</title>
+  <link href="/css/styles.css" rel="stylesheet">
+  <style>
+    :root {
+      --card-bg: #fff;
+      --accent1: #d1410c;
+      --accent2: #e86b2b;
+      --muted: #666;
+      --shadow: 0 14px 40px rgba(0,0,0,0.06);
+    }
+    body { background:#f6f7fb; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#222; }
+    header {
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    .dashboard { max-width: 940px; margin: 36px auto; padding: 28px; background: var(--card-bg); border-radius: 12px; box-shadow: var(--shadow); }
+    .row { display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap; }
+    .user-info { font-size:1rem; color:#333; min-width: 220px; }
+    .display-name { font-weight:800; font-size:1.2rem; margin-bottom:6px; }
+    .meta { color:var(--muted); font-size:0.95rem; margin-top:8px; line-height:1.45 }
+    .controls { display:flex; gap:10px; align-items:center; }
+    .btn { padding:10px 14px; border-radius:8px; font-weight:700; text-decoration:none; display:inline-block; cursor:pointer; border: none; }
+    .btn-danger { background:#c62828; color:#fff; }
+    .btn-secondary { background:#eee; color:#333; }
+    hr { border:none; border-top:1px solid #eee; margin:20px 0; }
+    .panel { margin-top:14px; }
+    .small { font-size:0.9rem; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="margin:0">Gourmet Pizza Paradise</h1>
+  </header>
+
+  <div class="dashboard">
+    <% if (user) { %>
+      <div class="row">
+        <div class="user-info">
+          <div class="display-name">
+            <% if (user.username) { %>
+              <%= user.username %>
+            <% } else { %>
+              <%= user.displayName || user.email %>
+            <% } %>
+          </div>
+
+          <div class="meta">
+            <% if (user.email) { %>
+              Email: <strong><%= user.email %></strong><br>
+            <% } %>
+            <% if (user.uniqId) { %>
+              UNIQ-ID: <strong><%= user.uniqId %></strong><br>
+            <% } %>
+            Member since: <%= user.createdAt ? new Date(user.createdAt).toLocaleString() : '—' %>
+          </div>
+        </div>
+
+        <div class="controls">
+          <!-- Logout: JS-enabled will call /logout then redirect to Google login (/login) -->
+          <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+
+          <!-- Delete: uses POST /delete; JS will call fetch + redirect to index on success.
+               Fallback below provides a standard POST form for non-JS clients. -->
+          <button id="deleteBtn" class="btn btn-danger">Delete account</button>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="panel">
+        <h3>Welcome back, <%= user.username || (user.displayName || user.email) %>!</h3>
+        <p class="small">This dashboard shows your account status for the Google (Passport) login. Use the buttons to logout or delete your account.</p>
+      </div>
+
+      <!-- Non-JS fallback form for delete -->
+      <form id="deleteFallbackForm" method="POST" action="/delete" style="display:none;">
+        <!-- server-side determines whether passport or uniq account exists in session -->
+      </form>
+
+      <script>
+        // Logout & delete: use fetch with credentials to include session cookie
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+          try {
+            const res = await fetch('/logout', { method: 'GET', credentials: 'same-origin' });
+            // regardless of server redirect, client-side route to Google login page
+            window.location.href = '/login';
+          } catch (err) {
+            console.error('Logout failed:', err);
+            // fallback
+            window.location.href = '/login';
+          }
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', async (ev) => {
+          if (!confirm('Delete account permanently? This cannot be undone.')) return;
+          try {
+            const res = await fetch('/delete', { method: 'POST', credentials: 'same-origin' });
+            // success -> send user to home page (index.html)
+            window.location.href = '/';
+          } catch (err) {
+            console.error('Delete failed, falling back to form submit:', err);
+            document.getElementById('deleteFallbackForm').submit();
+          }
+        });
+      </script>
+
+    <% } else { %>
+      <p>You are not logged in. <a href="/login">Sign in</a></p>
+    <% } %>
+  </div>
+
+</body>
+</html>

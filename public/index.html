@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gourmet Pizza Paradise — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent-1:#d1410c;
+      --accent-2:#e86b2b;
+      --cream:#fff8f0;
+      --card:#fff3e6;
+      --muted:#6b6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    body{background:linear-gradient(180deg,#fffefc 0%, #fff8f0 100%); color:#222; -webkit-font-smoothing:antialiased;}
+
+    /* Header */
+    header{background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:white; padding:28px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px;}
+    header h1{font-size:1.6rem; margin:0; letter-spacing:1px; font-weight:700;}
+    nav a{color:white; text-decoration:none; margin-left:14px; font-weight:600;}
+    .container{max-width:1200px;margin:0 auto;padding:26px;}
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center; margin-top:28px;}
+    .hero-left{padding:28px;}
+    .eyebrow{display:inline-block;background:rgba(255,255,255,0.12); color:#fff; padding:6px 10px; border-radius:999px;font-weight:700;margin-bottom:16px;}
+    .hero h2{font-size:2.6rem; color:#2b2b2b; margin:0 0 12px;}
+    .hero p.lead{color:var(--muted); font-size:1.05rem; margin:0 0 20px; max-width:640px;}
+
+    /* CTA card */
+    .cta-card{background:linear-gradient(180deg,var(--card),#fff); border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.08); padding:20px;}
+    .cta-title{font-size:1.2rem; color:var(--accent-1); margin:0 0 8px; font-weight:700;}
+    .cta-sub{color:#444; margin:0 0 14px;}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:10px; font-weight:700; text-decoration:none; cursor:pointer; border:0;}
+    .btn-google{background:#fff; color:#222; border:1px solid #ddd;}
+    .btn-sign{background:var(--accent-2); color:#fff;}
+    .small{font-size:0.9rem; color:var(--muted); margin-top:12px;}
+
+    /* Menu grid */
+    .menu-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:44px;}
+    .pizza-card{background:var(--card); border-radius:12px; overflow:hidden; box-shadow:0 10px 22px rgba(0,0,0,0.08); transition:transform 0.18s;}
+    .pizza-card:hover{transform:translateY(-6px)}
+    .pizza-card img{width:100%; height:160px; object-fit:cover; display:block;}
+    .pizza-card .body{padding:12px;}
+    .pizza-card h3{margin:0;color:var(--accent-1); font-size:1.05rem;}
+    .pizza-card p{margin:8px 0 0;color:#555;font-size:0.95rem;}
+    .price{font-weight:800; margin-top:10px; color:#222;}
+
+    /* Footer */
+    footer{margin-top:48px; padding:28px 0; text-align:center; color:#fff; background:linear-gradient(135deg,var(--accent-1),var(--accent-2));}
+
+    /* Responsive */
+    @media(max-width:960px){
+      .hero{grid-template-columns:1fr; padding:0 16px;}
+      .hero-right{order:-1}
+      header{flex-direction:column; align-items:flex-start; gap:12px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gourmet Pizza Paradise</h1>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="/login" style="opacity:0.95;">Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <div class="hero-left">
+        <span class="eyebrow">Artisan • Wood-fired • Fresh</span>
+        <h2>Slice into happiness — iconic pizzas, crafted daily.</h2>
+        <p class="lead">Hand-stretched dough, farm-fresh toppings, and a perfect char — delivered with love. Create an account to save favorites, view orders, and unlock offers.</p>
+
+        <div style="display:flex; gap:12px; margin-top:18px; align-items:center;">
+          <!-- Sign up and Login buttons (both perform Google OAuth) -->
+          <a class="btn btn-sign" href="/auth/google?intent=signup" title="Sign up with Google">
+            <svg width="18" height="18" viewBox="0 0 48 48" style="vertical-align:middle;" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C34.5 32 30 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.6-5.6C33.7 4.7 29.1 3 24 3 12.9 3 4 11.9 4 23s8.9 20 20 20c11.1 0 20-8.9 20-20 0-1.3-.1-2.6-.4-3.9z"/></svg>
+            Sign up with Google
+          </a>
+
+          <a class="btn btn-google" href="/auth/google?intent=login" title="Login with Google">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" style="width:18px;height:18px;">
+            Login with Google
+          </a>
+          
+        </div>
+      <a class="btn btn-google" href="/uniq" title="Continue with UNIQ">
+  <img src="/images/uniq-icon.svg" alt="UNIQ" style="width:18px;height:18px;margin-right:8px">
+  Continue with UNIQ-ID
+</a>
+        <div class="small">Both buttons start the Google sign-in flow. If your Google email is new, you'll be guided to create a username & password (signup). If your email already exists, you'll be taken straight to your dashboard.</div>
+      </div>
+
+      <div class="hero-right cta-card" style="align-self:center">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <img src="https://images.unsplash.com/photo-1548365328-6c92a43b9d50?auto=format&fit=crop&w=800&q=80" style="width:84px;height:84px;border-radius:12px;object-fit:cover;" alt="pizza">
+          <div>
+            <div class="cta-title">Order faster. Save favorites.</div>
+            <div class="cta-sub">Create one account with Google and keep your orders & addresses saved for quick checkout.</div>
+          </div>
+        </div>
+        <hr style="margin:14px 0;border:none;border-top:1px solid #f0e6df;">
+        <div style="font-size:0.95rem;color:#444;">Trusted by pizza lovers — fresh ingredients, honest prices. Try the Margherita or our signature Four Cheese.</div>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <section id="menu" style="margin-top:36px;">
+      <h3 style="color:var(--accent-1); margin-bottom:12px;">Popular Pizzas</h3>
+      <div class="menu-grid">
+        <div class="pizza-card">
+          <img src="https://images.unsplash.com/photo-1594007656930-204f6f6d4072?auto=format&fit=crop&w=1200&q=80" alt="">
+          <div class="body">
+            <h3>Margherita</h3>
+            <p>San Marzano tomato, fresh mozzarella & basil.</p>
+            <div class="price">$10.99</div>
+          </div>
+        </div>
+        <div class="pizza-card">
+          <img src="https://images.unsplash.com/photo-1603073330322-f8d7c6ce485d?auto=format&fit=crop&w=1200&q=80" alt="">
+          <div class="body">
+            <h3>Pepperoni</h3>
+            <p>Crispy pepperoni, double mozzarella, tomato sauce.</p>
+            <div class="price">$12.99</div>
+          </div>
+        </div>
+        <div class="pizza-card">
+          <img src="https://images.unsplash.com/photo-1606755962774-4387a728ed5e?auto=format&fit=crop&w=1200&q=80" alt="">
+          <div class="body">
+            <h3>BBQ Chicken</h3>
+            <p>Smoky BBQ sauce, grilled chicken, red onion & cilantro.</p>
+            <div class="price">$13.99</div>
+          </div>
+        </div>
+        <div class="pizza-card">
+          <img src="https://images.unsplash.com/photo-1617196039285-349b4c1d7ed6?auto=format&fit=crop&w=1200&q=80" alt="">
+          <div class="body">
+            <h3>Veggie Supreme</h3>
+            <p>Peppers, olives, mushrooms, onions & fresh herbs.</p>
+            <div class="price">$11.99</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:36px;">
+      <h3 style="color:var(--accent-1)">About Us</h3>
+      <p style="color:#444;max-width:900px">Gourmet Pizza Paradise started with a simple idea: great ingredients + perfect dough = happiness. We source produce from local farms and bake each pizza to order in our wood-fired oven.</p>
+    </section>
+
+    <section id="contact" style="margin-top:36px;">
+      <h3 style="color:var(--accent-1)">Contact</h3>
+      <p style="color:#444">Call: +1 234 567 8901 • Email: info@gourmetpizza.com</p>
+    </section>
+
+    <!-- Logged-in area injected by JS -->
+    <section id="accountStatus" style="margin-top:28px;"></section>
+
+  </main>
+
+  <footer>
+    <div style="max-width:1200px;margin:0 auto;padding:18px;color:#fff;">&copy; 2025 Gourmet Pizza Paradise</div>
+  </footer>
+
+<script>
+  // Check session/user and show quick controls
+  async function refreshUser() {
+    try {
+      const r = await fetch('/api/user', { credentials: 'same-origin' });
+      const info = await r.json();
+      const el = document.getElementById('accountStatus');
+      if (!info.loggedIn) {
+        el.innerHTML = '<div style="text-align:center;color:#666">Not signed in. Use the buttons above to sign up or login with Google.</div>';
+        return;
+      }
+      // show logged-in UI
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;padding:14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+          <div>
+            <div style="font-weight:700">${info.username || '(no username)'}</div>
+            <div style="color:#666">${info.email}</div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <a href="/dashboard" style="padding:10px 14px;border-radius:8px;background:#e86b2b;color:#fff;text-decoration:none;font-weight:700">Dashboard</a>
+            <a href="/logout" style="padding:10px 14px;border-radius:8px;background:#eee;color:#333;text-decoration:none;font-weight:700">Logout</a>
+            <button id="deleteBtn" style="padding:10px 14px;border-radius:8px;background:#c62828;color:#fff;border:none;font-weight:700">Delete account</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('deleteBtn').onclick = async () => {
+        if (!confirm('Delete account permanently? This cannot be undone.')) return;
+        const res = await fetch('/delete', { method: 'POST' });
+        if (res.ok) {
+          alert('Account deleted');
+          window.location.href = '/login';
+        } else {
+          const text = await res.text();
+          alert('Could not delete: ' + text);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  refreshUser();
+</script>
+</body>
+</html>

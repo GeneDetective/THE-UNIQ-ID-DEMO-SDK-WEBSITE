@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+* {margin:0; padding:0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+body {background-color: #fff8f0; color: #333; line-height: 1.6;}
+
+/* Header */
+header {background: linear-gradient(135deg, #d1410c, #e86b2b); color: white; padding: 30px 0; text-align: center; position: relative;}
+header h1 {font-size: 2.6em; letter-spacing: 2px; text-shadow: 2px 2px 5px rgba(0,0,0,0.4);}
+
+/* Navigation */
+nav {background-color: #e86b2b; padding: 12px 20px; text-align: center; position: sticky; top: 0; z-index: 1000;}
+nav a {color: white; text-decoration: none; margin: 0 12px; font-size: 1.05em; font-weight: 600; transition: color 0.3s;}
+nav a:hover {color: #ffd700;}
+
+/* Hero Section */
+.hero {background-image: url('https://images.unsplash.com/photo-1601924582971-2e92a46e223f?auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center; height: 420px; display: flex; justify-content: center; align-items: center; color: white; text-shadow: 3px 3px 6px #000;}
+.hero h2 {font-size: 3em; background-color: rgba(0,0,0,0.55); padding: 18px 30px; border-radius: 12px;}
+
+/* Sections */
+section {padding: 60px 20px; max-width: 1200px; margin: auto;}
+h2.section-title {text-align: center; font-size: 2.2em; margin-bottom: 30px; color: #d1410c; position: relative;}
+h2.section-title::after {content: ''; width: 80px; height: 4px; background-color: #e86b2b; display: block; margin: 12px auto 0 auto; border-radius: 2px;}
+
+/* Menu Grid */
+.menu-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px;}
+.pizza-card {background-color: #fff3e6; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.12); transition: transform 0.3s, box-shadow 0.3s;}
+.pizza-card:hover {transform: translateY(-8px); box-shadow: 0 14px 36px rgba(0,0,0,0.18);} 
+.pizza-card img {width: 100%; height: 240px; object-fit: cover; transition: transform 0.3s;}
+.pizza-card img:hover {transform: scale(1.04);} 
+.pizza-card h3 {font-size: 1.6em; padding: 18px 15px 8px 15px; color: #d1410c;}
+.pizza-card p {padding: 0 15px 12px 15px; font-size: 1em; color: #555;}
+.pizza-card span {display: block; padding: 0 15px 18px 15px; font-weight: 700; font-size: 1.15em; color: #333;}
+
+/* Footer */
+footer {background: linear-gradient(135deg, #d1410c, #e86b2b); color: white; text-align: center; padding: 30px 0; margin-top: 40px; font-size: 1em;}
+
+/* responsive */
+@media(max-width:768px){
+  header h1{font-size:1.8em}
+  .hero{height:320px}
+  .hero h2{font-size:1.6em}
+}
